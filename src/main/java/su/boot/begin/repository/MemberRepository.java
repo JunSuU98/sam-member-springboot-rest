@@ -16,22 +16,22 @@ public interface MemberRepository extends JpaRepository<Member, Integer>{
 	Page<Member> findByMemberIdContaining(String member_id, Pageable pageable);
 	
 	// 회원 이름 검색 
-	Page<Member> findByMemberNameContaining(String member_id, Pageable pageable);
+	Page<Member> findByMemberNameContaining(String member_name, Pageable pageable);
 	
 	// 회원 전화번호 검색 
-	Page<Member> findByMemberPhoneContaining(String member_id, Pageable pageable);
+	Page<Member> findByMemberPhoneContaining(String member_phone, Pageable pageable);
 	
 	// 회원 이메일 검색 
-	Page<Member> findByMemberEmailContaining(String member_id, Pageable pageable);
+	Page<Member> findByMemberEmailContaining(String member_email, Pageable pageable);
 	
 	// 회원 생일 검색
-	Page<Member> findByMemberBirthContaining(String member_id, Pageable pageable);
+	Page<Member> findByMemberBirthContaining(String member_birth, Pageable pageable);
 	
 	// 회원 상태 검색 
-	Page<Member> findByMemberStatusContaining(String member_id, Pageable pageable);
+	Page<Member> findByMemberStatusContaining(String member_status, Pageable pageable);
 	
 	// 회원 평점 검색 
-	Page<Member> findByMemberRate(Integer member_id, Pageable pageable);
+	Page<Member> findByMemberRate(Integer member_rate, Pageable pageable);
 	
 	
 	// member_id 로 member 찾기 
