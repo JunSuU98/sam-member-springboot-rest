@@ -1,7 +1,10 @@
 package su.boot.begin.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,15 +33,24 @@ public class MemberRestController {
 	
 	// 회원 전체 조회 (페이징) 
 	@GetMapping("")
-	public ResponseEntity<List<Member>> getAllMembers(@RequestParam(name = "searchFilter", required = false) String searchFilter
+	public ResponseEntity<Map<String, Object>> getAllMembers(@RequestParam(name = "searchFilter", required = false) String searchFilter
 			, @RequestParam(name = "searchQuery", required = false) String searchQuery
 			, @RequestParam(name = "page", defaultValue = "1") int page
 			, @RequestParam(name = "size", defaultValue = "5") int size) {
 		
-		List<Member> membersPage = memberService.findAllMember(searchFilter, searchQuery, page - 1, size).getContent();
+		Page<Member> memberPage = memberService.findAllMember(searchFilter, searchQuery, page - 1, size);
 		
-		if(membersPage != null) {
-			return new ResponseEntity<>(membersPage, HttpStatus.OK);
+		if(memberPage != null) {
+
+			List<Member> memberList = memberPage.getContent();
+			int totalPage = memberPage.getTotalPages();
+			
+			Map<String, Object> responseMap = new HashMap<>();
+			responseMap.put("memberList", memberList);
+			responseMap.put("totalPage", totalPage);
+			responseMap.put("currentPage", page);
+		
+			return new ResponseEntity<>(responseMap, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

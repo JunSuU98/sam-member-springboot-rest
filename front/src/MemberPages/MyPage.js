@@ -5,9 +5,9 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { useParams } from "react-router-dom";
 
 import ListGroup from 'react-bootstrap/ListGroup';
-import ToMainPageButton from "../component/ToMainPageButton";
-import MemberDeleteButton from "../component/MemberDeleteButton";
-import ToUpdatePageButton from "../component/ToUpdatePageButton";
+import ToMainPageButton from "../MemberComponent/ToMainPageButton";
+import MemberDeleteButton from "../MemberComponent/MemberDeleteButton";
+import ToUpdatePageButton from "../MemberComponent/ToUpdatePageButton";
 
 
 // 회원 상세 보기 

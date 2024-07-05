@@ -23,8 +23,8 @@ public class MemberService{
 		
 		Pageable pageable = PageRequest.of(page, size);
 		
-		// 검색필터나 검색어를 입력한 경우 
-		if(searchFilter != null || searchQuery != null) {
+		// 검색필터와 검색어를 모두 입력한 경우 
+		if(searchFilter != null && searchQuery != null) {
 			if(searchFilter.equals("member_id")) {
 				return memberRepository.findByMemberIdContaining(searchQuery, pageable);
 			} 
@@ -50,7 +50,7 @@ public class MemberService{
 			}
 			
 			if(searchFilter.equals("member_rate")) {
-				return memberRepository.findByMemberRateContaining(searchQuery, pageable);
+				return memberRepository.findByMemberRate(Integer.parseInt(searchQuery), pageable);
 			}
 		}
 		

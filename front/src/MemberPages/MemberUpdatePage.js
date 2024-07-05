@@ -5,7 +5,7 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useParams, useNavigate } from "react-router-dom";
-import GoBackButton from "../component/GoBackButton";
+import GoBackButton from "../MemberComponent/GoBackButton";
 
 function MemberUpdatePage(){
 

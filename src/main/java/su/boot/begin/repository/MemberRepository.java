@@ -31,7 +31,7 @@ public interface MemberRepository extends JpaRepository<Member, Integer>{
 	Page<Member> findByMemberStatusContaining(String member_id, Pageable pageable);
 	
 	// 회원 평점 검색 
-	Page<Member> findByMemberRateContaining(String member_id, Pageable pageable);
+	Page<Member> findByMemberRate(Integer member_id, Pageable pageable);
 	
 	
 	// member_id 로 member 찾기 

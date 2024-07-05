@@ -12,7 +12,7 @@ function GoBackButton(){
     const navigate = useNavigate();
 
     return(
-        <div>
+        <div style={{display: 'inline'}}>
             <Button variant="primary" onClick={() => navigate(-1)}>취소</Button>{' '}
         </div>
     );

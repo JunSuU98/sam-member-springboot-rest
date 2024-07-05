@@ -94,7 +94,7 @@
 			<ul class="pagination justify-content-center">
 				<li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
 					<c:if test="${currentPage > 1}">
-						<a class="page-link" href="/MemberSelect?page=${currentPage - 1}&size=${arrayList.size}" aria-label="Previous">
+						<a class="page-link" href="/MemberSelect?page=${currentPage - 1}&size=${arrayList.size}&searchFilter=${param.searchFilter}&searchQuery=${param.searchQuery}" aria-label="Previous">
 							<span aria-hidden="true">&laquo;</span>
 							<span class="sr-only">이전</span>
 						</a>
@@ -103,13 +103,13 @@
 
 				<c:forEach begin="1" end="${totalPages}" var="i">
 					<li class="page-item ${currentPage == i ? 'active' : ''}">
-						<a class="page-link" href="/MemberSelect?page=${i}&size=${arrayList.size}">${i}</a>
+						<a class="page-link" href="/MemberSelect?page=${i}&size=${arrayList.size}&searchFilter=${param.searchFilter}&searchQuery=${param.searchQuery}">${i}</a>
 					</li>
 				</c:forEach>
 
 				<li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
 					<c:if test="${currentPage < totalPages}">
-						<a class="page-link" href="/MemberSelect?page=${currentPage + 1}&size=${arrayList.size}" aria-label="Next">
+						<a class="page-link" href="/MemberSelect?page=${currentPage + 1}&size=${arrayList.size}&searchFilter=${param.searchFilter}&searchQuery=${param.searchQuery}" aria-label="Next">
 							<span aria-hidden="true">&raquo;</span>
 							<span class="sr-only">다음</span>
 						</a>

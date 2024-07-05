@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import MemberTable from './component/MemberTable';
+import MemberTable from './MemberComponent/MemberTable';
 import MyPage from './MemberPages/MyPage';
 
 function App() {

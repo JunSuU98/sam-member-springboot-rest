@@ -5,26 +5,7 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import {Link} from 'react-router-dom';
 
-function MemberTable(){
-
-	const [members, setMembers] = useState([]);
-
-	// 컴포넌트가 처음 마운트될 때 회원 목록을 불러오는 useEffect 훅을 선언한다
-	useEffect(() => {
-		loadMembers();
-	}, []);
-
-	const loadMembers = async () => {
-		try{
-			const response = await axios.get("/members");
-			setMembers(response.data);
-			console.log(response.data);
-
-		} catch (error) {
-			alert('회원이 없습니다');
-			console.log(error.message);
-		}
-	}
+function MemberTable({ memberList }){
 
 	return(
 		<Table striped bordered hover>
@@ -47,7 +28,7 @@ function MemberTable(){
 
 			<tbody>
 
-				{members.map(member => (
+				{memberList.map(member => (
 					<tr key={member.memberId}>
 						<td>{member.memberName}</td>
 						<td>{member.memberStatus}</td>
