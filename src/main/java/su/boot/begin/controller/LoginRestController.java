@@ -36,27 +36,6 @@ public class LoginRestController {
 		
 		// 로그인에 성공하면 회원의 정보를 세션에 저장한다
 		if(member!= null) {
-//
-//			httpSession.setAttribute("member_id", member.getMemberId());
-//			httpSession.setAttribute("member_name", member.getMemberName());
-//			httpSession.setAttribute("member_email", member.getMemberEmail());
-//			httpSession.setAttribute("member_phone", member.getMemberPhone());
-//			httpSession.setAttribute("member_birth", member.getMemberBirth());
-//			httpSession.setAttribute("member_address", member.getMemberAddress());
-//			httpSession.setAttribute("member_rate", member.getMemberRate());
-//			httpSession.setAttribute("member_create", member.getMemberCreate());
-//			httpSession.setAttribute("login_status", "success");
-//			
-//			
-//			
-//			
-//			// 쿠키 생성
-//			Cookie cookie = new Cookie("JSESSIONID", httpSession.getId());
-//			cookie.setPath("/");
-//			cookie.setMaxAge(60 * 60 * 24);
-//			
-			// 응답으로 sessionId 가 포함된 쿠키를 반환
-//			return new ResponseEntity<>(cookie, HttpStatus.OK);
 			
 			MemberVO memberVO2 = new MemberVO(member.getMemberNumber()
 				, member.getMemberCreate()
@@ -74,7 +53,6 @@ public class LoginRestController {
 			return new ResponseEntity<>(memberVO2, HttpStatus.OK);
 			
 		} else { // 로그인 실패 
-//			httpSession.setAttribute("login_status", "fail");
 
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -85,6 +63,8 @@ public class LoginRestController {
 	@GetMapping("/logout")
 	public ResponseEntity<?> logout(HttpSession httpSession){
 		httpSession.invalidate();
+		
+		
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

@@ -1,15 +1,21 @@
 package su.boot.begin.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import su.boot.begin.service.SocialLoginService;
 import su.boot.begin.social.vo.KakaoResponseVO;
 import su.boot.begin.social.vo.NaverResponseVO;
+import su.boot.begin.social.vo.NaverVO;
 
 @RestController
 public class SocialLoginRestController {
@@ -19,17 +25,25 @@ public class SocialLoginRestController {
 	
 	// 네이버 로그인 
 	@GetMapping("/api/naver-login-callback")
-	public ResponseEntity<NaverResponseVO> naverLoginCallback(@RequestParam("code") String code, @RequestParam("state") String state) {
+	public ResponseEntity<Map<String, Object>> naverLoginCallback(@RequestParam("code") String code, @RequestParam("state") String state) {
 		
 		// 1. 사용자 로그인 등록으로 access token 생성
-		String accessToken = socialLoginService.getNaverAccessToken(code).getAccess_token();
+		NaverVO naverVO = socialLoginService.getNaverAccessToken(code);
+
+		String accessToken = naverVO.getAccess_token();
+		String refreshToken = naverVO.getRefresh_token();
 		
 		// 2. access token 으로 접근해 사용자의 정보 요청
 		NaverResponseVO naverResponseVO = socialLoginService.getNaverProfile(accessToken);
 		
 		// 3. 사용자의 정보를 응답으로 반환
 		if(naverResponseVO != null) {
-			return new ResponseEntity<>(naverResponseVO, HttpStatus.OK);
+			Map<String, Object> response = new HashMap<>();
+			response.put("accessToken", accessToken);
+			response.put("refreshToken", refreshToken);
+			response.put("naverResponseVO", naverResponseVO);
+			
+			return new ResponseEntity<>(response, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -38,10 +52,11 @@ public class SocialLoginRestController {
 	
 	
 	// 네이버 로그아웃
-	@GetMapping("/naver-logout")
-	public String naverLogout() {
+	@PostMapping("/naver-logout")
+	public void naverLogout(@RequestBody NaverVO naverVO) {
+		
+		socialLoginService.naverLogout(naverVO.getAccess_token(), naverVO.getRefresh_token());
 
-		return "";
 	}
 	
 	
@@ -68,9 +83,10 @@ public class SocialLoginRestController {
 	
 	// 카카오 로그아웃
 	@GetMapping("/kakao-logout")
-	public String kakaoLogout() {
+	public void kakaoLogout() {
 		
-		return "";
+		socialLoginService.kakaoLogout();
+		
 	}
 
 }
