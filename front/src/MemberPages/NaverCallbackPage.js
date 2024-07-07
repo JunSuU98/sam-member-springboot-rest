@@ -26,13 +26,16 @@ function NaverCallbackPage({handleStorageChange}) {
             sessionStorage.clear();
 
             // sessionStorage에 사용자 정보 저장 
-            sessionStorage.setItem("member_sns_session",response.data.id);
-            sessionStorage.setItem("member_id",response.data.nickname);
-            sessionStorage.setItem("member_name",response.data.name);
-            sessionStorage.setItem("member_email", response.data.email);
-            sessionStorage.setItem("member_birth", response.data.birthyear + "-" +response.data.birthday);
-            sessionStorage.setItem("member_phone",response.data.mobile);
+            sessionStorage.setItem("member_sns_session",response.data.naverResponseVO.id);
+            sessionStorage.setItem("member_id",response.data.naverResponseVO.nickname);
+            sessionStorage.setItem("member_name",response.data.naverResponseVO.name);
+            sessionStorage.setItem("member_email", response.data.naverResponseVO.email);
+            sessionStorage.setItem("member_birth", response.data.naverResponseVO.birthyear + "-" + response.data.naverResponseVO.birthday);
+            sessionStorage.setItem("member_phone",response.data.naverResponseVO.mobile);
             sessionStorage.setItem("member_status", "active");
+
+            sessionStorage.setItem("naver_accessToken", response.data.accessToken);
+            sessionStorage.setItem("naver_refreshToken", response.data.refreshToken);
 
             handleStorageChange();
 
