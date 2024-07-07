@@ -9,6 +9,7 @@ import ToMainPageButton from "../MemberComponent/ToMainPageButton";
 import MemberDeleteButton from "../MemberComponent/MemberDeleteButton";
 import ToUpdatePageButton from "../MemberComponent/ToUpdatePageButton";
 
+import GoBackButton from "../MemberComponent/GoBackButton";
 
 // 회원 상세 보기 
 function MyPage(){
@@ -16,6 +17,7 @@ function MyPage(){
     const {member_id} = useParams();
 
     const [member, setMember] = useState({});
+
 
     useEffect(() => {
         loadMember();
@@ -33,25 +35,43 @@ function MyPage(){
         }
     }
 
+    const memberSnsId = sessionStorage.getItem("member_sns_session");
+
     return(
         <div>
             <p>마이 페이지</p>
             <ListGroup>
-                <ListGroup.Item>이름: {member.memberName}</ListGroup.Item>
-                <ListGroup.Item>상태: {member.memberStatus}</ListGroup.Item>
-                <ListGroup.Item>아이디: {member.memberId}</ListGroup.Item>
-                <ListGroup.Item>이메일: {member.memberEmail}</ListGroup.Item>
-                <ListGroup.Item>핸드폰: {member.memberPhone}</ListGroup.Item>
-                <ListGroup.Item>생년월일: {member.memberBirth}</ListGroup.Item>
-                <ListGroup.Item>주소: {member.memberAddress}</ListGroup.Item>
-                <ListGroup.Item>매너온도: {member.memberRate}</ListGroup.Item>
-                <ListGroup.Item>가입일자: {member.memberCreate}</ListGroup.Item>
+
+                <ListGroup.Item>이름: {sessionStorage.getItem("member_name")}</ListGroup.Item>
+                <ListGroup.Item>상태: {sessionStorage.getItem("member_status")}</ListGroup.Item>
+                <ListGroup.Item>아이디: {sessionStorage.getItem("member_id")}</ListGroup.Item>
+                <ListGroup.Item>이메일: {sessionStorage.getItem("member_email")} </ListGroup.Item>
+                <ListGroup.Item>핸드폰: {sessionStorage.getItem("member_phone")} </ListGroup.Item>
+                <ListGroup.Item>생년월일: {sessionStorage.getItem("member_birth")} </ListGroup.Item>
+
+                {/* member_address, member_rate, member_create 가 없는 경우에는 보여주지 않는다 (SNS 로그인한 경우 ) */}
+                {sessionStorage.getItem("member_address") !== null && (
+                    <ListGroup.Item>주소: {sessionStorage.getItem("member_address")}</ListGroup.Item>
+                )}
+                {sessionStorage.getItem("member_rate") !== null && (
+                    <ListGroup.Item>매너온도: {sessionStorage.getItem("member_rate")}</ListGroup.Item>
+                )}
+                {sessionStorage.getItem("member_create") !== null && (
+                    <ListGroup.Item>가입일자: {sessionStorage.getItem("member_create")}</ListGroup.Item>
+                )}
+
             </ListGroup>
 
             <ToMainPageButton/>
-            <ToUpdatePageButton />
-            <MemberDeleteButton />
 
+            {memberSnsId === null && (
+                <>
+                    <ToUpdatePageButton />
+                    <MemberDeleteButton />
+                </>
+            )}
+
+            <GoBackButton text={"이전"}/>
         </div>
 
 

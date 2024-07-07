@@ -7,13 +7,13 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
 
 
-function GoBackButton(){
+function GoBackButton({text}){
 
     const navigate = useNavigate();
 
     return(
         <div style={{display: 'inline'}}>
-            <Button variant="primary" onClick={() => navigate(-1)}>취소</Button>{' '}
+            <Button variant="primary" onClick={() => navigate(-1)}>{text}</Button>{' '}
         </div>
     );
 

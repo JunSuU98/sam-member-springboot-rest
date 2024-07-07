@@ -1,43 +1,39 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import MemberTable from "../MemberComponent/MemberTable";
-import Paging from "../MemberComponent/Paging";
-import SearchForm from "../MemberComponent/SearchForm";
 
-function Root(){
+import LoginModal from "../modal/LoginModal";
+import LogoutButton from "../MemberComponent/LogoutButton";
+import NaverLoginButton from "../MemberComponent/NaverLoginButton";
+import KakaoLoginButton from "../MemberComponent/KakaoLoginButton";
 
-    const [memberList, setMemberList] = useState([]);
-    const [totalPage, setTotalPage] = useState(1);
-    const [currentPage, setCurrentPage] = useState(1);
+import ToJoinPageButton from "../MemberComponent/ToJoinPageButton";
 
-	// 컴포넌트가 처음 마운트될 때 회원 목록을 불러오는 useEffect 훅을 선언한다
-	// useEffect(() => {
-	// 	loadMembers();
-	// }, []);
+import NaverCallbackPage from "../MemberPages/NaverCallbackPage";
+import KakaoCallbackPage from "../MemberPages/KakaoCallbackPage";
 
-	const loadMembers = async () => {
-		try{
-			const response = await axios.get("/members");
-			setMemberList(response.data.memberList);
-            setTotalPage(response.data.totalPage);
-            setCurrentPage(response.data.currentPage)
+import MyPageButton from "../MemberComponent/MyPageButton";
 
-			console.log(response.data);
-		} catch (error) {
-			alert('회원이 없습니다');
-			console.log(error.message);
-		}
-	}
+import { Link } from "react-router-dom";
 
+function Root({handleStorageChange, memberId}){
 
     return(
 
         <div>
-            {/* <MemberTable memberList={memberList}/> */}
+            {memberId === null ? (
+                <>
+                    <LoginModal handleStorageChange={handleStorageChange} />
+                    <ToJoinPageButton />
+                </>
+                    ) : (
+                <>
+                <LogoutButton handleStorageChange={handleStorageChange} />
+                <MyPageButton member_id={memberId} />
+                </>
+            )}
 
-			<SearchForm />
+            {memberId === "admin" && <Link to={"/admin"}>admin page</Link>}
 
-            {/* <Paging totalPage={totalPage} currentPage={currentPage}/> */}
         </div>
 
     )

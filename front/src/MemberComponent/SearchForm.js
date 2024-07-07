@@ -31,7 +31,7 @@ function SearchForm(){
 	const loadMembers = async () => {
 
         try {
-            let response = await axios.get("/members");
+            let response = await axios.get("/admin");
             setMemberList(response.data.memberList);
             setTotalPage(response.data.totalPage);
 
@@ -57,7 +57,7 @@ function SearchForm(){
         e.preventDefault();
 
         try{
-            const response = await axios.get(`/members?page=1&size=5&searchFilter=${searchData.searchFilter}&searchQuery=${searchData.searchQuery}`);
+            const response = await axios.get(`/admin?page=1&size=5&searchFilter=${searchData.searchFilter}&searchQuery=${searchData.searchQuery}`);
             setMemberList(response.data.memberList);
             setTotalPage(response.data.totalPage);
 
@@ -91,7 +91,7 @@ function SearchForm(){
                     placeholder="검색어를 입력하세요"
                     aria-label="searchInput"
                     aria-describedby="basic-addon2"
-                    name="searchQuery"
+                    name="searchQuery"  
                     value={searchData.searchQuery}
                     onChange={handleChange}
                     />

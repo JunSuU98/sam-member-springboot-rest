@@ -26,16 +26,16 @@ public class LoginService {
 	
 	// 아이디 찾기 (이름, 생년월일, 핸드폰 일치)
 	@Transactional(readOnly = true)
-	public Member searchId(String member_name, String member_birth, String member_phone) {
+	public Member searchId(String member_name, String member_email, String member_phone) {
 		
-		return loginRepository.findByMemberNameAndMemberBirthAndMemberPhone(member_name, member_birth, member_phone);
+		return loginRepository.findByMemberNameAndMemberEmailAndMemberPhone(member_name, member_email, member_phone);
 	}
 	
 	
 	// 비밀번호 찾기 (아이디, 이름, 생년월일, 핸드폰 일치)
 	@Transactional(readOnly = true)
-	public Member searchPassword(String member_id, String member_name, String member_birth, String member_phone) {
-		return loginRepository.findByMemberIdAndMemberNameAndMemberBirthAndMemberPhone(member_id, member_name, member_birth, member_phone);
+	public Member searchPassword(String member_id, String member_name, String member_email, String member_phone) {
+		return loginRepository.findByMemberIdAndMemberNameAndMemberEmailAndMemberPhone(member_id, member_name, member_email, member_phone);
 	}
 	
 }

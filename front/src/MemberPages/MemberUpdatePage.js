@@ -150,7 +150,7 @@ function MemberUpdatePage(){
 
 
             <Button type="submit">정보수정</Button>
-            <GoBackButton />
+            <GoBackButton text={"취소"}/>
 
         </Form>
 

@@ -25,14 +25,13 @@ import su.boot.begin.vo.MemberVO;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/members")
 public class MemberRestController {
 	
 	@Inject
 	private final MemberService memberService;
 	
 	// 회원 전체 조회 (페이징) 
-	@GetMapping("")
+	@GetMapping("/admin")
 	public ResponseEntity<Map<String, Object>> getAllMembers(@RequestParam(name = "searchFilter", required = false) String searchFilter
 			, @RequestParam(name = "searchQuery", required = false) String searchQuery
 			, @RequestParam(name = "page", defaultValue = "1") int page
@@ -57,7 +56,7 @@ public class MemberRestController {
 	}
 	
 	// 회원 상세 조회
-	@GetMapping("/{member_id}")
+	@GetMapping("/members/{member_id}")
 	public ResponseEntity<Member> getMember(@PathVariable("member_id") String member_id) {
 
 		Member member = memberService.findMemberByMemberId(member_id);
@@ -98,7 +97,7 @@ public class MemberRestController {
 	}
 	
 	// 회원 정보 수정
-	@PutMapping("/{member_id}")
+	@PutMapping("/members/{member_id}")
 	public ResponseEntity<Member> updateMember(@PathVariable("member_id") String member_id, @RequestBody MemberVO memberVO) {
 		
 		Member exsistingMember = memberService.findMemberByMemberId(memberVO.getMember_id());
@@ -122,7 +121,7 @@ public class MemberRestController {
 	}
 	
 	// 회원 삭제
-	@DeleteMapping("/{member_id}")
+	@DeleteMapping("/members/{member_id}")
 	public ResponseEntity<Void> deleteMember(@PathVariable("member_id") String member_id) {
 		
 		int deleted = memberService.deleteMember(member_id);

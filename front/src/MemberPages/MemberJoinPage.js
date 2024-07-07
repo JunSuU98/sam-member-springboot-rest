@@ -4,15 +4,18 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import GoBackButton from "../MemberComponent/GoBackButton";
 
-
+import { useNavigate } from "react-router-dom";
 
 function MemberJoinPage(){
+    const navigate = useNavigate();
 
     // form 데이터 
     const [formData, setFormData] = useState({
         member_id: '',
         member_password: '',
+        confirm_password: '',
         member_name: '',
         member_email: '',
         member_phone: '',
@@ -27,6 +30,7 @@ function MemberJoinPage(){
 
     });
 
+    // id 중복확인용 변수
     const [idCheckResult, setIdCheckResult] = useState(0);
 
 
@@ -52,8 +56,13 @@ function MemberJoinPage(){
             return;
         }
 
+        if(formData.member_password !== formData.confirm_password){
+            alert("비밀번호가 일치하지 않습니다.");
+            return;
+        }
+
         try{
-            const response = await axios.post("/members/join", formData, {
+            const response = await axios.post("/join", formData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -64,6 +73,9 @@ function MemberJoinPage(){
             }
 
             alert('회원 가입이 완료되었습니다');
+            navigate("/");
+            
+
         } catch (error) {
             console.log('Error: ', error);
             alert('서버 오류: 회원 가입에 실패했습니다');
@@ -75,7 +87,7 @@ function MemberJoinPage(){
     const idCheck = async () => {
 
         try{
-            const response = await axios.get(`/members/id-check/${formData.member_id}`);
+            const response = await axios.get(`/id-check/${formData.member_id}`);
             if(response.data === 0){ // 아이디 중복 확인을 통과한 경우
                 setIdCheckResult(1);
                 alert("사용 가능한 아이디입니다.")
@@ -103,6 +115,11 @@ function MemberJoinPage(){
             <Form.Group className="mb-3">
                 <Form.Label>비밀번호</Form.Label>
                 <Form.Control type="password" placeholder="비밀번호 입력" name="member_password" id="member_password" value={formData.member_password} onChange={handleChange}/>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+                <Form.Label>비밀번호 재확인</Form.Label>
+                <Form.Control type="password" placeholder="비밀번호 재입력" name="confirm_password" id="confirm_password" value={formData.confirm_password} onChange={handleChange}/>
             </Form.Group>
 
             <Form.Group className="mb-3">
@@ -149,7 +166,7 @@ function MemberJoinPage(){
 
 
             <Button type="submit">회원가입</Button>
-            <Button>취소</Button>
+            <GoBackButton  text={"취소"}/>
 
         </Form>
 

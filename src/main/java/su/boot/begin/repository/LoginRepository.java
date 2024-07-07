@@ -10,10 +10,10 @@ public interface LoginRepository extends JpaRepository<Member, Integer>{
 	Member findByMemberIdAndMemberPassword(String member_id, String member_password);
 	
 	// 아이디 찾기
-	Member findByMemberNameAndMemberBirthAndMemberPhone(String member_name, String member_birth, String member_phone);
+	Member findByMemberNameAndMemberEmailAndMemberPhone(String member_name, String member_email, String member_phone);
 	
 	// 비밀번호 찾기
-	Member findByMemberIdAndMemberNameAndMemberBirthAndMemberPhone(String member_id, String member_name, String member_birth, String member_phone);
+	Member findByMemberIdAndMemberNameAndMemberEmailAndMemberPhone(String member_id, String member_name, String member_email, String member_phone);
 
 
 }

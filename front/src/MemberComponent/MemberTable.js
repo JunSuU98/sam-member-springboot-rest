@@ -42,7 +42,7 @@ function MemberTable({ memberList }){
 						<td>{member.memberCreate}</td>
 						<td>{member.memberUpdate}</td>
 						<td>
-							<Link to={`members/${member.memberId}`}>상세보기</Link>
+							<Link to={`/members/${member.memberId}`}>상세보기</Link>
 						</td>
 					</tr>
 				))}

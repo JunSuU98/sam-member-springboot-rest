@@ -148,7 +148,7 @@ public class LoginController {
 	@PostMapping("/IdSearch")
 	public String idSearch(MemberVO memberVO, Model model) {
 		
-		Member member = loginService.searchId(memberVO.getMember_name(), memberVO.getMember_birth(), memberVO.getMember_phone());
+		Member member = loginService.searchId(memberVO.getMember_name(), memberVO.getMember_email(), memberVO.getMember_phone());
 		
 		model.addAttribute("member", member);
 
@@ -164,7 +164,7 @@ public class LoginController {
 	@PostMapping("/PasswordSearch")
 	public String passwordSearch(MemberVO memberVO, Model model) {
 		
-		Member member = loginService.searchPassword(memberVO.getMember_id(), memberVO.getMember_name(), memberVO.getMember_birth(), memberVO.getMember_phone());
+		Member member = loginService.searchPassword(memberVO.getMember_id(), memberVO.getMember_name(), memberVO.getMember_email(), memberVO.getMember_phone());
 		
 		model.addAttribute("member", member);
 		
